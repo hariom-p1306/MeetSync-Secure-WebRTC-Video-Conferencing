@@ -4,12 +4,13 @@
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-//import router from "../../../Backend/src/routes/users.routes";
+// import server from "../environment";
+import server from "../environment";
 
 export const AuthContext = createContext({});
 
 const client = axios.create({
-    baseURL: "http://localhost:8000/api/v1/users"
+    baseURL: `${server}/api/v1/users`
 });
 
 export const AuthProvider = ({ children }) => {
@@ -26,52 +27,6 @@ export const AuthProvider = ({ children }) => {
             throw err;
         }
     };
-
-    // const handleLogin = async (username, password) => {
-    //     try {
-    //         const request = await client.post("/login", { username, password });
-    //         if (request.status === 200) {
-    //             setUserData(request.data.user);
-    //             localStorage.setItem("token", request.data.token);
-    //             return "Login Successful";
-
-    //         }
-    //     } catch (err) {
-    //         throw err;
-    //     }
-    // };
-
-
-
-    // const handleLogin = async (username, password) => {
-    //     try {
-    //         const request = await client.post("/login", {
-    //             username,
-    //             password
-    //         });
-
-    //         console.log(request.data);
-    //         console.log("FULL RESPONSE:", response);
-
-    //         if (request.status === 200) {
-    //             // ✅ save token
-    //             //localStorage.setItem("token", request.data.token);
-    //             //localStorage.setItem("token", request.data.data.token);
-    //             localStorage.setItem("token", response.token);
-
-    //             // ✅ optional: save user data
-    //             setUserData(request.data.user);
-
-    //             // ✅ redirect correctly
-    //             navigate("/home");
-    //         }
-
-    //     } catch (err) {
-    //         console.error(err);
-    //         throw err;
-    //     }
-    // };
-
 
     const handleLogin = async (username, password) => {
         try {
