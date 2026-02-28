@@ -14,6 +14,7 @@ import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 import ChatIcon from '@mui/icons-material/Chat'
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -63,6 +64,45 @@ export default function VideoMeetConponent() {
     const videoRef = useRef([]);
 
     let [videos, setVideos] = useState([]);
+
+
+    const videoRefContainer = React.useRef(null);
+    const [position, setPosition] = useState({ x: 20, y: 100 });
+    const dragging = React.useRef(false);
+
+    const startDrag = (e) => {
+        dragging.current = true;
+    };
+
+    const handleMove = (e) => {
+        if (!dragging.current) return;
+
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        setPosition({
+            x: clientX - 75,
+            y: clientY - 50,
+        });
+    };
+
+    const stopDrag = () => {
+        dragging.current = false;
+    };
+
+    useEffect(() => {
+        window.addEventListener("mousemove", handleMove);
+        window.addEventListener("mouseup", stopDrag);
+        window.addEventListener("touchmove", handleMove);
+        window.addEventListener("touchend", stopDrag);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMove);
+            window.removeEventListener("mouseup", stopDrag);
+            window.removeEventListener("touchmove", handleMove);
+            window.removeEventListener("touchend", stopDrag);
+        };
+    }, []);
 
 
     const getPermissions = async () => {
@@ -423,6 +463,7 @@ export default function VideoMeetConponent() {
 
 
 
+
     return (
         <div>
             {askForUsername ?
@@ -484,7 +525,31 @@ export default function VideoMeetConponent() {
                     {showModal ? <div className={styles.chatRoom}>
 
                         <div className={styles.chatContainer}>
-                            <h2 style={{ marginBottom: "10px" }}>Chat</h2>
+                            {/* <h2 style={{ marginBottom: "10px" }}>Chat</h2> */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginBottom: "10px"
+                                }}
+                            >
+                                <h2>Chat</h2>
+
+
+                                <button
+                                    onClick={handleChat}
+                                    style={{
+                                        background: "none",
+                                        border: "none",
+                                        color: "white",
+                                        fontSize: "20px",
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
 
                             <div className={styles.chattingDisplay}>
 
@@ -546,8 +611,21 @@ export default function VideoMeetConponent() {
 
 
                     </div>
-                    <video className={styles.meetUserVideo} ref={localVideoref} autoPlay muted></video>
-
+                    <div
+                        className={styles.draggableVideo}
+                        style={{
+                            left: position.x,
+                            top: position.y
+                        }}
+                        onMouseDown={startDrag}
+                        onTouchStart={startDrag}
+                    >
+                        <video
+                            ref={localVideoref}
+                            autoPlay
+                            muted
+                        ></video>
+                    </div>
 
                     <div className={styles.conferenceView}>
                         {videos.map((video) => (
