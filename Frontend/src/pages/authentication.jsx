@@ -1,4 +1,11 @@
 import * as React from 'react';
+
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +23,7 @@ const defaultTheme = createTheme();
 
 export default function Authentication() {
 
+    const [showPassword, setShowPassword] = React.useState(false);
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [name, setName] = React.useState("");
@@ -23,7 +31,7 @@ export default function Authentication() {
     const [message, setMessage] = React.useState("");
     const [formState, setFormState] = React.useState(0); // 0 = Sign In, 1 = Sign Up
     const [open, setOpen] = React.useState(false);
-    const {handleRegister, handleLogin} = React.useContext(AuthContext);
+    const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
     // // Dummy Login
     // const handleLogin = async (username, password) => {
@@ -67,120 +75,147 @@ export default function Authentication() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid
+                container
+                sx={{
+                    minHeight: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background:
+                        "radial-gradient(circle at 80% 30%, rgba(99,102,241,0.4), transparent 40%), linear-gradient(135deg, #0f0f1a, #1a1a2e)",
+                }}
+            >
                 <CssBaseline />
 
-                {/* Left Image Section */}
-                <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
+                <Paper
+                    elevation={0}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        width: 400,
+                        p: 5,
+                        borderRadius: 4,
+                        background: "rgba(255,255,255,0.05)",
+                        backdropFilter: "blur(25px)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        boxShadow: "0 0 80px rgba(99,102,241,0.35)",
+                        color: "white",
                     }}
-                />
+                >
+                    <Box display="flex" flexDirection="column" alignItems="center">
 
-                {/* Right Form Section */}
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
+                        <Avatar sx={{ bgcolor: "transparent", mb: 1 }}>
+                            <LockOutlinedIcon sx={{ color: "#ff8a00" }} />
                         </Avatar>
 
-                        <Typography component="h1" variant="h5">
-                            {formState === 0 ? "Sign In" : "Sign Up"}
+                        <Typography variant="h5" fontWeight={600}>
+                            {formState === 0 ? "Welcome Back" : "Create Account"}
                         </Typography>
 
-                        {/* Toggle Buttons */}
-                        <Box sx={{ mt: 2 }}>
-                            <Button
-                                variant={formState === 0 ? "contained" : "outlined"}
-                                onClick={() => setFormState(0)}
-                                sx={{ mr: 1 }}
-                            >
-                                Sign In
-                            </Button>
-                            <Button
-                                variant={formState === 1 ? "contained" : "outlined"}
-                                onClick={() => setFormState(1)}
-                            >
-                                Sign Up
-                            </Button>
-                        </Box>
+                        <Typography variant="body2" sx={{ opacity: 0.6, mb: 2 }}>
+                            {formState === 0 ? "Sign in to continue" : "Sign up to get started"}
+                        </Typography>
 
-                        <Box component="form" sx={{ mt: 3, width: "100%", maxWidth: 400 }}>
-
-                            {/* Full Name Field (Space Reserved Always) */}
-                           
-
+                        {formState === 1 && (
                             <TextField
                                 margin="normal"
                                 fullWidth
                                 label="Full Name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                sx={{
-                                    visibility: formState === 1 ? "visible" : "hidden",
-                                height: "56px"  
+                                InputLabelProps={{ style: { color: "#aaa" } }}
+                                InputProps={{
+                                    style: { color: "white", background: "rgba(255,255,255,0.08)", borderRadius: 10 }
                                 }}
                             />
+                        )}
 
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
+                            sx={{
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                        borderColor: "#444",
+                                    },
+                                    "&:hover fieldset": {
+                                        borderColor: "#ff8a00",
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                        borderColor: "#ff0058",
+                                    },
+                                },
+                            }}
+                        />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Password"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            type={showPassword ? "text" : "password"}
+                            label="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            InputLabelProps={{ style: { color: "#aaa" } }}
+                            InputProps={{
+                                style: {
+                                    color: "white",
+                                    background: "rgba(255,255,255,0.08)",
+                                    borderRadius: 10
+                                },
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            edge="end"
+                                            sx={{ color: "#aaa" }}
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
 
-                            {error && (
-                                <Typography color="error" variant="body2">
-                                    {error}
-                                </Typography>
-                            )}
+                        {error && (
+                            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                                {error}
+                            </Typography>
+                        )}
 
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                onClick={handleAuth}
+                        <Button
+                            fullWidth
+                            sx={{
+                                mt: 3,
+                                py: 1.5,
+                                borderRadius: 5,
+                                fontWeight: 600,
+                                background: "linear-gradient(90deg, #ff8a00, #ff0058)",
+                                color: "white",
+                                "&:hover": {
+                                    boxShadow: "0 0 30px rgba(255,0,88,0.6)",
+                                },
+                            }}
+                            onClick={handleAuth}
+                        >
+                            {formState === 0 ? "Login" : "Register"}
+                        </Button>
+
+                        <Typography sx={{ mt: 2, opacity: 0.7 }}>
+                            {formState === 0 ? "Don't have an account?" : "Already have an account?"}
+                            <span
+                                style={{ color: "#ff8a00", cursor: "pointer", marginLeft: 5 }}
+                                onClick={() => setFormState(formState === 0 ? 1 : 0)}
                             >
-                                {formState === 0 ? "Login" : "Register"}
-                            </Button>
-                        </Box>
-                    </Box>
-                </Grid>
-            </Grid>
+                                {formState === 0 ? "Sign Up" : "Sign In"}
+                            </span>
+                        </Typography>
 
-            <Snackbar
-                open={open}
-                autoHideDuration={4000}
-                onClose={() => setOpen(false)}
-                message={message}
-            />
+                    </Box>
+                </Paper>
+            </Grid>
         </ThemeProvider>
     );
 }

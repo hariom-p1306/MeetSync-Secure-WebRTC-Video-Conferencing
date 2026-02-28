@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-// import "../styles/videoComponent.css";
+
 import { Badge, Button, IconButton } from "@mui/material";
 import io from "socket.io-client";
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -38,9 +38,7 @@ export default function VideoMeetConponent() {
 
     let [audioAvailable, setAudioAvailable] = useState(true);
 
-    // let [video, setVideo] = useState([]);
 
-    // let [audio, setAudio] = useState();
 
     let [video, setVideo] = useState(true);
     let [audio, setAudio] = useState(true);
@@ -111,78 +109,10 @@ export default function VideoMeetConponent() {
 
     useEffect(() => {
         getPermissions();
-    }, [])  // run only once
+    }, [])
 
 
 
-
-
-    // let getUserMediaSuccess = (stream) => {
-
-    //     // yha change kiye ho
-    //     // try {
-    //     //     window.localStream.getTracks().forEach(track => track.stop())
-    //     // } catch (e) { console.log(e) }
-
-
-    //     if (window.localStream) {
-    //         window.localStream.getTracks().forEach(track => track.stop());
-    //     }
-
-    //     window.localStream = stream
-    //     localVideoref.current.srcObject = stream
-
-    //     for (let id in connections) {
-    //         if (id === socketIdRef.current) continue
-
-    //         connections[id].addStream(window.localStream)
-
-    //         connections[id].createOffer().then((description) => {
-    //             console.log(description)
-    //             connections[id].setLocalDescription(description)
-    //                 .then(() => {
-    //                     socketRef.current.emit('signal', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
-    //                 })
-    //                 .catch(e => console.log(e))
-    //         })
-    //     }
-
-    //     stream.getTracks().forEach(track => track.onended = () => {
-    //         setVideo(false);
-    //         setAudio(false);
-
-    //         try {
-    //             //let tracks = localVideoref.current.srcObject.getTracks()
-
-    //             let tracks = localVideoref.current?.srcObject?.getTracks() || [];
-    //             tracks.forEach(track => track.stop());
-    //             // tracks.forEach(track => track.stop())
-    //         } catch (e) { console.log(e) }
-
-    //         let blackSilence = (...args) => new MediaStream([black(...args), silence()])
-    //         window.localStream = blackSilence()
-    //         localVideoref.current.srcObject = window.localStream
-
-    //         for (let id in connections) {
-    //             // connections[id].addStream(window.localStream)
-    //             window.localStream.getTracks().forEach(track => {
-    //                 connections[id].addTrack(track, window.localStream);
-    //             });
-
-    //             connections[id].createOffer().then((description) => {
-    //                 connections[id].setLocalDescription(description)
-
-    //                     .then(() => {
-    //                         socketRef.current.emit('signal', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
-    //                     })
-    //                     .catch(e => console.log(e))
-    //             })
-    //         }
-
-
-
-    //     })
-    // }
 
     let getUserMediaSuccess = (stream) => {
 
@@ -383,35 +313,12 @@ export default function VideoMeetConponent() {
 
     }
 
-    // let sendMessage = () =>{
-    //     socketIdRef.current.emit("chat-message", message, username);
-    //     setMessage("");
-    // }
+
 
     let sendMessage = () => {
         socketRef.current.emit("chat-message", message, username, socketIdRef.current);
         setMessage("");
     }
-
-    // let handleEndCall = () => {
-    //     console.log("Before end:",getItem("token"));
-    //     try {
-    //         let tracks = localVideoref.current.srcObject.getTracks();
-    //         tracks.forEach(tracks => tracks.stop());
-    //     } catch (e) { }
-    //     routeTo("/home");
-    // }
-
-    // let handleEndCall = () => {
-    //     console.log("Before end:", localStorage.getItem("token"));
-
-    //     try {
-    //         let tracks = localVideoref.current?.srcObject?.getTracks() || [];
-    //         tracks.forEach(track => track.stop());
-    //     } catch (e) { }
-
-    //     routeTo("/home");
-    // };
 
     let handleEndCall = () => {
         console.log("Before end:", localStorage.getItem("token"));
@@ -519,14 +426,55 @@ export default function VideoMeetConponent() {
     return (
         <div>
             {askForUsername ?
-                <div>
 
-                    <h2>Enter into Lobby</h2>
-                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" />
-                    {/* <Button variant="contained" onClick={connectToSocketServer}>Connect</Button> */}
-                    <Button variant="contained" onClick={connect}>Connect</Button>
-                    <div>
-                        <video ref={localVideoref} autoPlay muted></video>
+                <div className="lobbyContainer">
+
+                    <div className="lobbyCard">
+
+                        <h2>Ready to Join?</h2>
+
+                        <div className="videoPreview">
+                            <video ref={localVideoref} autoPlay muted playsInline />
+                        </div>
+
+                        <TextField
+                            fullWidth
+                            label="Enter your name"
+                            variant="outlined"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            sx={{
+                                mt: 2,
+                                input: { color: "white" },
+                                "& .MuiOutlinedInput-root": {
+                                    background: "rgba(255,255,255,0.08)",
+                                    borderRadius: "12px",
+                                    "& fieldset": { borderColor: "#444" },
+                                    "&:hover fieldset": { borderColor: "#ff8a00" },
+                                    "&.Mui-focused fieldset": { borderColor: "#ff0058" },
+                                },
+                                "& .MuiInputLabel-root": { color: "#aaa" },
+                            }}
+                        />
+
+                        <Button
+                            fullWidth
+                            onClick={connect}
+                            sx={{
+                                mt: 3,
+                                py: 1.5,
+                                borderRadius: 10,
+                                fontWeight: 600,
+                                background: "linear-gradient(90deg, #ff8a00, #ff0058)",
+                                color: "white",
+                                "&:hover": {
+                                    boxShadow: "0 0 30px rgba(255,0,88,0.6)",
+                                },
+                            }}
+                        >
+                            Join Meeting
+                        </Button>
+
                     </div>
 
                 </div> :
@@ -536,7 +484,7 @@ export default function VideoMeetConponent() {
                     {showModal ? <div className={styles.chatRoom}>
 
                         <div className={styles.chatContainer}>
-                            <h1>Chat</h1>
+                            <h2 style={{ marginBottom: "10px" }}>Chat</h2>
 
                             <div className={styles.chattingDisplay}>
 
@@ -557,8 +505,16 @@ export default function VideoMeetConponent() {
                             <div className={styles.chattingArea}>
 
                                 <TextField value={message} onChange={e => setMessage(e.target.value)} id="outlined-basic" label="Enter your Chat" variant="outlined" />
-                                <Button variant="contained" onClick={sendMessage}>Send</Button>
-                            </div>
+                                <Button
+                                    onClick={sendMessage}
+                                    sx={{
+                                        background: "linear-gradient(90deg, #ff8a00, #ff0058)",
+                                        borderRadius: "20px",
+                                        color: "white"
+                                    }}
+                                >
+                                    Send
+                                </Button>                            </div>
                         </div>
 
                     </div> : <></>}
