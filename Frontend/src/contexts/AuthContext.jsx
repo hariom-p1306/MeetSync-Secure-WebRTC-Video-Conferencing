@@ -4,7 +4,6 @@
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import server from "../environment";
 import server from "../environment";
 
 export const AuthContext = createContext({});
@@ -58,26 +57,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // const handleLogin = async (username, password) => {
-    //     try {
-    //         const request = await client.post("/login", { username, password });
-
-
-    //         if (request.status === 200) {
-    //             setUserData(request.data.user);
-
-    //             // ✅ VERY IMPORTANT
-    //             localStorage.setItem("token", request.data.token);
-
-    //             navigate("/home"); // optional but good
-    //             return "Login Successful";
-    //         }
-    //     } catch (err) {
-    //         throw err;
-    //     }
-
-
-    // };
 
     const getHistoryOfUser = async () => {
         try {
@@ -104,11 +83,6 @@ export const AuthProvider = ({ children }) => {
             throw e;
         }
     }
-
-
-
-
-
 
 
     const data = {

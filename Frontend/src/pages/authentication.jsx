@@ -33,23 +33,6 @@ export default function Authentication() {
     const [open, setOpen] = React.useState(false);
     const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
-    // // Dummy Login
-    // const handleLogin = async (username, password) => {
-    //     if (!username || !password) {
-    //         throw { response: { data: { message: "All fields are required" } } };
-    //     }
-    //     setMessage("Login Successful!");
-    //     setOpen(true);
-    // };
-
-    // // Dummy Register
-    // const handleRegister = async (name, username, password) => {
-    //     if (!name || !username || !password) {
-    //         throw { response: { data: { message: "All fields are required" } } };
-    //     }
-    //     return "Registration Successful!";
-    // };
-
     const handleAuth = async () => {
         try {
             setError("");

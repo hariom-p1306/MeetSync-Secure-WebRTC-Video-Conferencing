@@ -17,33 +17,7 @@
   background-position: center;
 }
 
-/* .landingPageContainer {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
-  color: white;
-  font-family: 'Inter', sans-serif;
 
-  background:
-    radial-gradient(circle at 75% 40%, rgba(99,102,241,0.35), transparent 40%),
-    linear-gradient(135deg, #0f0f1a, #1a1a2e);
-} */
-
-/* ===============================
-   BACKGROUND GLOW EFFECTS
-================================= */
-
-/* .landingPageContainer::before {
-  content: "";
-  position: absolute;
-  top: -150px;
-  left: 40%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99,102,241,0.3), transparent 60%);
-  filter: blur(120px);
-  z-index: 0;
-} */
 
 .landingPageContainer::before {
   content: "";
@@ -57,23 +31,7 @@
   z-index: 0;
 }
 
-/* .landingPageContainer::after {
-  content: "";
-  position: absolute;
-  bottom: -200px;
-  right: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255,140,0,0.4), transparent 60%);
-  filter: blur(120px);
-  z-index: 0;
-} */
 
-/* .heroImage img {
-  height: 75vh;
-  animation: float 6s ease-in-out infinite;
-  transform: rotate(-10deg);
-} */
 
 
 .landingPageContainer::after {
@@ -95,21 +53,6 @@
   filter: drop-shadow(0 30px 60px rgba(255, 140, 0, 0.4));
 }
 
-/* .landingPageContainer::after {
-  content: "";
-  position: absolute;
-  bottom: -150px;
-  right: -150px;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(255,140,0,0.5), transparent 60%);
-  filter: blur(150px);
-  z-index: 1;
-} */
-
-/* ===============================
-   NAVBAR
-================================= */
 
 .navbar {
   position: relative;
@@ -208,16 +151,7 @@
   max-width: 600px;
 } 
 
-/* .heroContent {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(25px);
-  padding: 60px;
-  border-radius: 25px;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 
-    0 0 60px rgba(99,102,241,0.3),
-    0 0 120px rgba(255, 140, 0, 0.15);
-} */
+
 
 /* Heading */
 
@@ -336,9 +270,17 @@
 
 }
 
-.rightPanel {
+/* .rightPanel {
   display: flex;
   align-items: center;
+} */
+
+.rightPanel {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 50px rgba(99,102,241,0.3);
 }
 
 .rightPanel > img {
@@ -346,3 +288,114 @@
   height: auto;
   border-radius: 20px;
 } 
+
+
+
+
+
+
+/* ================= HOME CONTAINER ================= */
+
+.homeContainer {
+  min-height: 100vh;
+  color: white;
+  background:
+    radial-gradient(circle at 20% 70%, rgba(255,0,88,0.2), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(99,102,241,0.4), transparent 40%),
+    linear-gradient(135deg, #0f0f1a, #1a1a2e);
+}
+
+/* ================= NAVBAR ================= */
+
+.homeNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 60px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logoText {
+  font-weight: 700;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.historyText {
+  opacity: 0.8;
+}
+
+.logoutBtn {
+  color: #ff4b5c !important;
+}
+
+/* ================= HERO SECTION ================= */
+
+.meetContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px;
+}
+
+.leftPanel {
+  max-width: 600px;
+}
+
+.leftPanel h1 {
+  font-size: 2.5rem;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.joinBox {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.joinBtn {
+  padding: 14px 30px !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+  font-weight: 600 !important;
+  background: linear-gradient(90deg, #ff8a00, #ff0058) !important;
+  color: white !important;
+  box-shadow: 0 0 20px rgba(255,0,88,0.4);
+}
+
+.joinBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(255,0,88,0.7);
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.rightPanel img {
+  width: 400px;
+}
+
+
+
+/* about section */
+
+.footerCredit {
+  position: absolute;
+  bottom: 15px;
+  right: 25px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.footerCredit:hover {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255,0,88,0.7);
+}
