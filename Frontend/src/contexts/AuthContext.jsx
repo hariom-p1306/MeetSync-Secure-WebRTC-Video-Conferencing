@@ -83,6 +83,7 @@ export const AuthProvider = ({ children }) => {
             throw e;
         }
     }
+    
 
 
     const data = {

@@ -14,7 +14,8 @@ import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 import ChatIcon from '@mui/icons-material/Chat'
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
+
 
 
 
@@ -64,45 +65,6 @@ export default function VideoMeetConponent() {
     const videoRef = useRef([]);
 
     let [videos, setVideos] = useState([]);
-
-
-    const videoRefContainer = React.useRef(null);
-    const [position, setPosition] = useState({ x: 20, y: 100 });
-    const dragging = React.useRef(false);
-
-    const startDrag = (e) => {
-        dragging.current = true;
-    };
-
-    const handleMove = (e) => {
-        if (!dragging.current) return;
-
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        setPosition({
-            x: clientX - 75,
-            y: clientY - 50,
-        });
-    };
-
-    const stopDrag = () => {
-        dragging.current = false;
-    };
-
-    useEffect(() => {
-        window.addEventListener("mousemove", handleMove);
-        window.addEventListener("mouseup", stopDrag);
-        window.addEventListener("touchmove", handleMove);
-        window.addEventListener("touchend", stopDrag);
-
-        return () => {
-            window.removeEventListener("mousemove", handleMove);
-            window.removeEventListener("mouseup", stopDrag);
-            window.removeEventListener("touchmove", handleMove);
-            window.removeEventListener("touchend", stopDrag);
-        };
-    }, []);
 
 
     const getPermissions = async () => {
@@ -262,8 +224,10 @@ export default function VideoMeetConponent() {
     let routeTo = useNavigate();
     let connect = () => {
         setAskForUsername(false);
-        getUserMedia();
         connectToSocketServer();
+        socketRef.current.on("connect", () => {
+            getUserMedia();
+        });
     }
 
     let handleVideo = () => {
@@ -282,7 +246,10 @@ export default function VideoMeetConponent() {
     let getDislayMediaSuccess = (stream) => {
         console.log("HERE")
         try {
-            window.localStream.getTracks().forEach(track => track.stop())
+            const audioTrack = window.localStream.getAudioTracks()[0];
+            if (audioTrack) audioTrack.enabled = audio;
+
+            // window.localStream.getTracks().forEach(track => track.stop())
         } catch (e) { console.log(e) }
 
         window.localStream = stream
@@ -611,7 +578,7 @@ export default function VideoMeetConponent() {
 
 
                     </div>
-                    <div
+                    {/* <div
                         className={styles.draggableVideo}
                         style={{
                             left: position.x,
@@ -625,11 +592,24 @@ export default function VideoMeetConponent() {
                             autoPlay
                             muted
                         ></video>
-                    </div>
+                    </div> */}
+
+                    <video className={styles.meetUserVideo} ref={localVideoref} autoPlay muted></video>
 
                     <div className={styles.conferenceView}>
                         {videos.map((video) => (
                             <div key={video.socketId}>
+
+                                {/* <video
+                                    data-socket={video.socketId}
+                                    ref={ref => {
+                                        if (ref && video.stream) {
+                                            ref.srcObject = video.stream;
+                                        }
+                                    }}
+                                    autoPlay
+                                    playsInline
+                                /> */}
 
                                 <video
                                     data-socket={video.socketId}
@@ -655,4 +635,11 @@ export default function VideoMeetConponent() {
 
         </div>
     );
-} 
+}
+
+
+
+
+
+
+

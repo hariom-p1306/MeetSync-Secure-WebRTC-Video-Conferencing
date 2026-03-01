@@ -34,7 +34,13 @@ function HomeComponent() {
             {/* NAVBAR */}
             <div className="homeNavbar">
 
-                <h3 className="logoText">Apna Video Call</h3>
+                <h3
+                    onClick={() => navigate("/")}
+                    className="logoText"
+                    style={{ cursor: "pointer" }}
+                >
+                    Apna Video Call
+                </h3>
 
                 <div className="navRight">
                     <IconButton
