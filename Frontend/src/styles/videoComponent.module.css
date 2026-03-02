@@ -91,11 +91,19 @@
 
 .conferenceView {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* .conferenceView {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 15px;
-  padding: 30px;
-  padding-bottom: 120px;
-}
+  /* padding: 30px;
+  padding-bottom: 120px; */
+
+
+
 
 .conferenceView video {
   width: 100%;
