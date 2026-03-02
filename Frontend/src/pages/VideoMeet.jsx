@@ -416,26 +416,45 @@ export default function VideoMeetConponent() {
                     //     });
                     // };
 
-                    connections[socketListId].ontrack = (event) => {
-                        console.log("Remote track received");
+                    // connections[socketListId].ontrack = (event) => {
+                    //     console.log("Remote track received");
 
+                    //     const remoteStream = event.streams[0];
+
+                    //     setVideos((prevVideos) => {
+                    //         const exists = prevVideos.find(v => v.socketId === socketListId);
+
+                    //         if (exists) {
+                    //             return prevVideos.map(v =>
+                    //                 v.socketId === socketListId
+                    //                     ? { ...v, stream: remoteStream }
+                    //                     : v
+                    //             );
+                    //         } else {
+                    //             return [...prevVideos, { socketId: socketListId, stream: remoteStream }];
+                    //         }
+                    //     });
+                    // };
+
+                    connections[socketListId].ontrack = (event) => {
                         const remoteStream = event.streams[0];
 
-                        setVideos((prevVideos) => {
-                            const exists = prevVideos.find(v => v.socketId === socketListId);
+                        setVideos(prevVideos => {
+                            const alreadyExists = prevVideos.some(
+                                video => video.socketId === socketListId
+                            );
 
-                            if (exists) {
-                                return prevVideos.map(v =>
-                                    v.socketId === socketListId
-                                        ? { ...v, stream: remoteStream }
-                                        : v
+                            if (alreadyExists) {
+                                return prevVideos.map(video =>
+                                    video.socketId === socketListId
+                                        ? { socketId: socketListId, stream: remoteStream }
+                                        : video
                                 );
-                            } else {
-                                return [...prevVideos, { socketId: socketListId, stream: remoteStream }];
                             }
+
+                            return [...prevVideos, { socketId: socketListId, stream: remoteStream }];
                         });
                     };
-
 
 
 
@@ -495,7 +514,7 @@ export default function VideoMeetConponent() {
                         try {
                             connections[id2].addStream(window.localStream)
                         } catch (e) { }
-                       
+
 
 
 
