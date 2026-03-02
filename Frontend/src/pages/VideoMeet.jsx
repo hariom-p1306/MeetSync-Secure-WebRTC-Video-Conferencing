@@ -11,7 +11,8 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
-import ChatIcon from '@mui/icons-material/Chat'
+// import ChatIcon from '@mui/icons-material/Chat'
+import ChatIcon from '@mui/icons-material/Chat';
 import { useNavigate } from "react-router-dom";
 import server from "../environment";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -47,6 +48,7 @@ export default function VideoMeetConponent() {
 
 
     let [screen, setScreen] = useState();
+
 
     let [showModal, setModal] = useState(true);
 
@@ -124,6 +126,10 @@ export default function VideoMeetConponent() {
         window.localStream = stream;
         localVideoref.current.srcObject = stream;
 
+        // if (localVideoref.current) {
+        //     localVideoref.current.srcObject = stream;
+        // }
+
         for (let id in connections) {
             if (id === socketIdRef.current) continue;
 
@@ -155,9 +161,10 @@ export default function VideoMeetConponent() {
             localVideoref.current.srcObject = window.localStream;
 
             for (let id in connections) {
-                window.localStream.getTracks().forEach(track => {
-                    connections[id].addTrack(track, window.localStream);
-                });
+                // window.localStream.getTracks().forEach(track => {
+                //     connections[id].addTrack(track, window.localStream);
+                // });
+                connections[id].addStream(window.localStream)
             }
         });
     };
@@ -239,6 +246,13 @@ export default function VideoMeetConponent() {
         setAudio(!audio);
     }
 
+    // let handleAudio = () => {
+    //     window.localStream?.getAudioTracks().forEach(track => {
+    //         track.enabled = !audio;
+    //     });
+    //     setAudio(!audio);
+    // }
+
     let handleChat = () => {
         setModal(!showModal)
     }
@@ -254,12 +268,28 @@ export default function VideoMeetConponent() {
 
         window.localStream = stream
         localVideoref.current.srcObject = stream
+        // if (localVideoref.current) {
+        //     localVideoref.current.srcObject = stream;
+        // }
 
         for (let id in connections) {
             if (id === socketIdRef.current) continue
 
             connections[id].addStream(window.localStream)
 
+            // window.localStream.getTracks().forEach(track => {
+            //     connections[id].addTrack(track, window.localStream);
+            // });
+
+            // window.localStream.getTracks().forEach(track => {
+            //     const alreadyAdded = connections[id]
+            //         .getSenders()
+            //         .some(sender => sender.track === track);
+
+            //     if (!alreadyAdded) {
+            //         connections[id].addTrack(track, window.localStream);
+            //     }
+            // });
             connections[id].createOffer().then((description) => {
                 connections[id].setLocalDescription(description)
                     .then(() => {
@@ -371,17 +401,37 @@ export default function VideoMeetConponent() {
 
                     //Wait for their video stream 
                     // rha chnage kiya hai 
-                    connections[socketListId].onaddstream = (event) => {
+                    // connections[socketListId].onaddstream = (event) => {
+                    //     setVideos((prevVideos) => {
+                    //         console.log("Remote stream received");
+                    //         // agar ye video pehle se exist karta hai
+                    //         const exists = prevVideos.find(v => v.socketId === socketListId);
+                    //         if (exists) {
+                    //             // update stream
+                    //             return prevVideos.map(v => v.socketId === socketListId ? { ...v, stream: event.stream } : v);
+                    //         } else {
+                    //             // naya video add karo
+                    //             return [...prevVideos, { socketId: socketListId, stream: event.stream }];
+                    //         }
+                    //     });
+                    // };
+
+                    connections[socketListId].ontrack = (event) => {
+                        console.log("Remote track received");
+
+                        const remoteStream = event.streams[0];
+
                         setVideos((prevVideos) => {
-                            console.log("Remote stream received");
-                            // agar ye video pehle se exist karta hai
                             const exists = prevVideos.find(v => v.socketId === socketListId);
+
                             if (exists) {
-                                // update stream
-                                return prevVideos.map(v => v.socketId === socketListId ? { ...v, stream: event.stream } : v);
+                                return prevVideos.map(v =>
+                                    v.socketId === socketListId
+                                        ? { ...v, stream: remoteStream }
+                                        : v
+                                );
                             } else {
-                                // naya video add karo
-                                return [...prevVideos, { socketId: socketListId, stream: event.stream }];
+                                return [...prevVideos, { socketId: socketListId, stream: remoteStream }];
                             }
                         });
                     };
@@ -400,6 +450,39 @@ export default function VideoMeetConponent() {
                         connections[socketListId].addStream(window.localStream)
                     }
 
+                    // if (window.localStream !== undefined && window.localStream !== null) {
+                    //     // window.localStream.getTracks().forEach(track => {
+                    //     //     connections[socketListId].addTrack(track, window.localStream);
+                    //     // });
+
+                    //     // window.localStream.getTracks().forEach(track => {
+                    //     //     const alreadyAdded = connections[id]
+                    //     //         .getSenders()
+                    //     //         .some(sender => sender.track === track);
+
+                    //     //     if (!alreadyAdded) {
+                    //     //         connections[id].addTrack(track, window.localStream);
+                    //     //     }
+                    //     // });
+                    // } else {
+                    //     let blackSilence = (...args) => new MediaStream([black(...args), silence()]);
+                    //     window.localStream = blackSilence();
+
+                    //     // window.localStream.getTracks().forEach(track => {
+                    //     //     connections[socketListId].addTrack(track, window.localStream);
+                    //     // });
+
+                    //     window.localStream.getTracks().forEach(track => {
+                    //         const alreadyAdded = connections[id]
+                    //             .getSenders()
+                    //             .some(sender => sender.track === track);
+
+                    //         if (!alreadyAdded) {
+                    //             connections[id].addTrack(track, window.localStream);
+                    //         }
+                    //     });
+                    // }
+
 
 
 
@@ -412,6 +495,7 @@ export default function VideoMeetConponent() {
                         try {
                             connections[id2].addStream(window.localStream)
                         } catch (e) { }
+                       
 
 
 
@@ -636,10 +720,6 @@ export default function VideoMeetConponent() {
         </div>
     );
 }
-
-
-
-
 
 
 
