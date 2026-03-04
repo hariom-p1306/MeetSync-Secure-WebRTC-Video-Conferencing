@@ -91,9 +91,18 @@
 
 .conferenceView {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  padding: 20px;
 }
+
+/* .conferenceView {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  padding-bottom: 140px;
+} */
 
 /* .conferenceView {
   display: grid;
@@ -103,7 +112,7 @@
   padding-bottom: 120px; */
 
 
-
+/* 
 
 .conferenceView video {
   width: 100%;
@@ -112,6 +121,14 @@
   border-radius: 20px;
   background: black;
   box-shadow: 0 0 20px rgba(99,102,241,0.3);
+} */
+
+.conferenceView video {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  background: black;
 }
 
 /* ================= LOCAL VIDEO ================= */
@@ -182,4 +199,96 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
+}
+
+
+/* @media (max-width: 768px) {
+
+  .conferenceView {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 120px;
+    z-index: 10;
+  }
+
+  .conferenceView video {
+    width: 120px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .meetUserVideo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+
+    width: 120px;
+    height: 80px;
+
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+} */
+
+@media (max-width:768px){
+
+.meetUserVideo{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+
+  width: 90px;
+  height: 70px;
+
+  border-radius: 10px;
+  object-fit: cover;
+
+  z-index: 1100;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+}
+
+@media (max-width:768px){
+
+.conferenceView{
+  position: fixed;
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  z-index: 1100;
+}
+
+.conferenceView video{
+  width: 90px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+}
+
+@media (max-width:768px){
+
+.chattingDisplay{
+  padding-top: 50px;
+}
+
 }

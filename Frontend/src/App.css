@@ -495,7 +495,7 @@
 }
 
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
 
   .chatRoom {
     position: fixed;
@@ -536,7 +536,7 @@
   .meetUserVideo {
     display: none;
   }
-}
+} */
 
 
 /* video moves */
