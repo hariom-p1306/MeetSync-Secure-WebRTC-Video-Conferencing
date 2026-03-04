@@ -255,14 +255,8 @@
   border-radius: 10px;
   object-fit: cover;
 
-  z-index: 1100;
-
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  z-index: 1000;
 }
-
-}
-
-@media (max-width:768px){
 
 .conferenceView{
   position: fixed;
@@ -272,8 +266,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  z-index: 1100;
 }
 
 .conferenceView video{
