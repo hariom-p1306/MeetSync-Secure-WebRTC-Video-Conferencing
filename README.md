@@ -144,6 +144,49 @@ This project is built as a production-style real-time communication platform to 
 
 ---
 
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[User / Student] --> B[Next.js Frontend]
+    B --> C[Next.js API Routes]
+
+    C --> D[AI Interview Evaluation API]
+    C --> E[Resume Analyzer API]
+    C --> F[Roadmap Generator API]
+    C --> G[AI Mentor API]
+    C --> H[Cover Letter API]
+
+    D --> I[Groq LLM API]
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+
+    D --> J[Redis / Upstash]
+    E --> J
+
+    J --> K[Progress Tracking]
+    K --> L[Dashboard Analytics]
+
+    C --> M[Prisma ORM]
+    M --> N[PostgreSQL Database]
+
+    L --> B
+```
+
+### Architecture Overview
+
+PlacementPrep AI follows a full-stack AI-powered architecture built around Next.js API Routes, LLM-based evaluation, Redis/Upstash caching, Prisma ORM, and PostgreSQL persistence.
+
+The user interacts with the Next.js frontend, where they can access AI interview practice, resume analysis, roadmap generation, AI mentor support, and cover letter generation. Each feature communicates with dedicated Next.js API routes, which process user input and interact with the Groq LLM API to generate intelligent responses, feedback, scores, and recommendations.
+
+Redis/Upstash is used for fast temporary data handling, progress tracking, and improving response flow for AI-based modules. Prisma ORM manages structured database operations, while PostgreSQL stores persistent user data, interview sessions, resume analysis results, progress records, and dashboard analytics.
+
+This architecture makes the platform modular, scalable, and suitable for real-world interview preparation workflows.
+
+
 ## Project Architecture
 
 ```txt
