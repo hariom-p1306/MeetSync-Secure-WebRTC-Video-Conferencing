@@ -20,6 +20,16 @@ export const connectToSocket = (server) => {
 
         console.log("SOMETHING CONNECTED")
 
+        const getSocketRoom = () => {
+            for (const roomKey in connections) {
+                if (connections[roomKey].includes(socket.id)) {
+                    return roomKey;
+                }
+            }
+
+            return null;
+        };
+
         socket.on("join-call", (path) => {
 
             if (connections[path] === undefined) {
@@ -78,6 +88,28 @@ export const connectToSocket = (server) => {
             }
 
         })
+
+        socket.on("whiteboard-clear", () => {
+            const matchingRoom = getSocketRoom();
+
+            if (!matchingRoom) return;
+
+            connections[matchingRoom].forEach((elem) => {
+                io.to(elem).emit("whiteboard-clear");
+            });
+        });
+
+        socket.on("whiteboard-draw", (drawData) => {
+            const matchingRoom = getSocketRoom();
+
+            if (!matchingRoom) return;
+
+            connections[matchingRoom].forEach((elem) => {
+                if (elem !== socket.id) {
+                    io.to(elem).emit("whiteboard-draw", drawData);
+                }
+            });
+        });
 
         socket.on("disconnect", () => {
 

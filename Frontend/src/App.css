@@ -560,3 +560,1813 @@
 
 
 /* Mobile layout fix */
+
+
+/* ===============================
+   NEW MEETSYNC LANDING PAGE
+   Paste this at the END of App.css
+================================= */
+
+.landingPageContainer {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #ffffff;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  background:
+    radial-gradient(circle at top left, rgba(255, 119, 0, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(151, 71, 255, 0.24), transparent 30%),
+    linear-gradient(135deg, #090b1a 0%, #14152b 45%, #241331 100%);
+}
+
+.landingPageContainer::before,
+.landingPageContainer::after {
+  pointer-events: none;
+}
+
+/* Navbar */
+.navbar {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: none;
+  position: relative;
+  z-index: 5;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.logoDot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8a00, #ff2d75);
+  box-shadow: 0 0 24px rgba(255, 90, 90, 0.8);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navLinks a,
+.navLinks p {
+  color: #d8d8e8;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.navLinks a:hover,
+.navLinks p:hover {
+  color: #ffffff;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.loginText {
+  color: #e8e8f5;
+  cursor: pointer;
+}
+
+.navCta {
+  border: none;
+  outline: none;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff8a00, #ff2d75);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(255, 80, 80, 0.25);
+}
+
+/* Hero Section */
+.heroSection {
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
+  min-height: 75vh;
+  margin: 55px auto 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 50px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroContent {
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  max-width: 720px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffd7c2;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.heroBadge span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  box-shadow: 0 0 16px #ff4d4d;
+}
+
+.heroContent h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -2px;
+  max-width: 720px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #ffb347, #ff3d81);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  margin-top: 22px;
+  max-width: 620px;
+  color: #c8c8d8;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.heroButtons {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctaBtn,
+.secondaryBtn {
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  padding: 15px 28px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ctaBtn {
+  margin-top: 0;
+  background: linear-gradient(135deg, #ff8a00, #ff2d75);
+  box-shadow: 0 16px 35px rgba(255, 60, 100, 0.3);
+}
+
+.ctaBtn a {
+  color: white;
+  text-decoration: none;
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.trustText {
+  margin-top: 18px;
+  color: #aaaabd;
+  font-size: 14px;
+}
+
+/* Hero Mockup */
+.heroImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meetingMockup {
+  width: 100%;
+  max-width: 500px;
+  padding: 18px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.meetingMockup::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 34px;
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.6), rgba(151, 71, 255, 0.5));
+  z-index: -1;
+  filter: blur(22px);
+  opacity: 0.6;
+}
+
+.mockupTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.mockupTop p {
+  font-weight: 700;
+  flex: 1;
+}
+
+.mockupTop small {
+  color: #cfcfe2;
+}
+
+.liveDot {
+  width: 10px;
+  height: 10px;
+  background: #15ff8a;
+  border-radius: 50%;
+  box-shadow: 0 0 14px #15ff8a;
+}
+
+.videoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.videoCard {
+  min-height: 135px;
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.videoCard span {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: 900;
+}
+
+.videoCard p {
+  font-weight: 700;
+}
+
+.cardOne {
+  background: linear-gradient(135deg, #ff8a00, #ff4d4d);
+}
+
+.cardTwo {
+  background: linear-gradient(135deg, #6a5cff, #b15cff);
+}
+
+.cardThree {
+  background: linear-gradient(135deg, #1f8cff, #23c6ff);
+}
+
+.cardFour {
+  background: linear-gradient(135deg, #ff3d81, #8f43ff);
+}
+
+.meetingControls {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.meetingControls button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  cursor: pointer;
+}
+
+.meetingControls .leaveBtn {
+  background: #ff3b4f;
+}
+
+/* Sections */
+.featuresSection,
+.howSection,
+.techSection {
+  width: 90%;
+  max-width: 1200px;
+  margin: 100px auto 0;
+  position: relative;
+  z-index: 2;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.sectionHeader h2 {
+  font-size: 38px;
+  font-weight: 900;
+}
+
+.sectionHeader p {
+  margin-top: 10px;
+  color: #b9b9ca;
+  font-size: 16px;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.featureCard,
+.stepCard {
+  padding: 26px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: 0.3s ease;
+}
+
+.featureCard:hover,
+.stepCard:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.featureIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.25), rgba(255, 45, 117, 0.25));
+  margin-bottom: 18px;
+}
+
+.featureCard h3,
+.stepCard h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.featureCard p,
+.stepCard p {
+  color: #c3c3d4;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.stepCard span {
+  display: inline-block;
+  font-size: 34px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffb347, #ff3d81);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
+}
+
+/* Tech Section */
+.techSection {
+  text-align: center;
+  padding: 32px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.techSection p {
+  color: #cfcfe0;
+  margin-bottom: 20px;
+}
+
+.techBadges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.techBadges span {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Footer override */
+.footerCredit {
+  position: relative;
+  bottom: auto;
+  right: auto;
+  text-align: center;
+  padding: 40px 0 26px;
+  color: #c9c9d8;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+  .heroSection {
+    grid-template-columns: 1fr;
+    text-align: center;
+    min-height: auto;
+  }
+
+  .heroContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    width: 92%;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .navActions {
+    gap: 10px;
+  }
+
+  .loginText {
+    display: none;
+  }
+
+  .navCta {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .heroSection {
+    margin-top: 45px;
+  }
+
+  .heroContent h1 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ctaBtn,
+  .secondaryBtn {
+    width: 100%;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader h2 {
+    font-size: 30px;
+  }
+
+  .videoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   LANDING PAGE SPACING FIX
+   Paste at END of App.css
+================================= */
+
+.navbar {
+  padding: 24px 0;
+}
+
+.heroSection {
+  margin-top: 40px;
+  min-height: 68vh;
+  gap: 80px;
+  align-items: center;
+}
+
+.heroContent h1 {
+  font-size: clamp(40px, 4.8vw, 62px);
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+}
+
+.heroSubtitle {
+  max-width: 560px;
+  font-size: 17px;
+  line-height: 1.65;
+  margin-top: 20px;
+}
+
+.heroBadge {
+  margin-bottom: 22px;
+}
+
+.heroButtons {
+  margin-top: 30px;
+}
+
+.meetingMockup {
+  max-width: 430px;
+  padding: 16px;
+  border-radius: 28px;
+}
+
+.videoCard {
+  min-height: 115px;
+  border-radius: 18px;
+}
+
+.videoCard span {
+  width: 46px;
+  height: 46px;
+  font-size: 14px;
+}
+
+.videoCard p {
+  font-size: 14px;
+}
+
+.meetingControls {
+  padding: 10px;
+}
+
+.meetingControls button {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+}
+
+/* Section spacing */
+.featuresSection {
+  margin-top: 80px;
+}
+
+.howSection {
+  margin-top: 85px;
+}
+
+.techSection {
+  margin-top: 80px;
+  padding: 28px;
+}
+
+.sectionHeader {
+  margin-bottom: 32px;
+}
+
+.sectionHeader h2 {
+  font-size: 34px;
+}
+
+.featuresGrid {
+  gap: 20px;
+}
+
+.featureCard,
+.stepCard {
+  padding: 24px;
+  min-height: 190px;
+}
+
+.stepsGrid {
+  gap: 20px;
+}
+
+.footerCredit {
+  padding: 35px 0 28px;
+}
+
+/* Better large screen width */
+@media (min-width: 1200px) {
+  .navbar,
+  .heroSection,
+  .featuresSection,
+  .howSection,
+  .techSection {
+    max-width: 1100px;
+  }
+}
+
+/* Laptop screen fix */
+@media (max-width: 1100px) {
+  .heroSection {
+    gap: 45px;
+  }
+
+  .heroContent h1 {
+    font-size: clamp(38px, 4.5vw, 54px);
+  }
+
+  .meetingMockup {
+    max-width: 400px;
+  }
+}
+
+
+/* ===============================
+   UPDATED HOME DASHBOARD UI
+================================= */
+
+.homeContainer {
+  min-height: 100vh;
+  color: white;
+  background:
+    radial-gradient(circle at 12% 70%, rgba(255, 0, 88, 0.18), transparent 34%),
+    radial-gradient(circle at 82% 20%, rgba(99, 102, 241, 0.34), transparent 38%),
+    linear-gradient(135deg, #070816, #15162b 55%, #25142f);
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.homeNavbar {
+  height: 78px;
+  padding: 0 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 7, 18, 0.45);
+  backdrop-filter: blur(18px);
+}
+
+.homeLogo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.homeLogo h3 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.homeLogoIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 0 24px rgba(255, 0, 88, 0.6);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.historyBtn {
+  color: white !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+  border-radius: 999px !important;
+  padding: 9px 16px !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.logoutBtn {
+  color: #ff5b72 !important;
+  text-transform: none !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  padding: 9px 16px !important;
+  border: 1px solid rgba(255, 91, 114, 0.24) !important;
+}
+
+/* Main layout */
+.homeDashboard {
+  width: 90%;
+  max-width: 1220px;
+  margin: 70px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 420px 330px;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Hero */
+.homeHero {
+  max-width: 560px;
+}
+
+.welcomeBadge {
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  color: #ffd4c4;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.homeHero h1 {
+  font-size: clamp(42px, 4.6vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -1.6px;
+  font-weight: 950;
+}
+
+.homeHero h1 span {
+  background: linear-gradient(135deg, #ffb347, #ff3d81);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.homeHero p {
+  margin-top: 22px;
+  color: #c8c8d8;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.homeFeatureChips {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.homeFeatureChips div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: 16px;
+  color: #eeeeff;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.homeFeatureChips svg {
+  font-size: 19px;
+  color: #ff8a00;
+}
+
+/* Join Card */
+.joinMeetingCard {
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 28px 75px rgba(0, 0, 0, 0.34);
+}
+
+.joinCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.joinCardHeader h2 {
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.joinCardHeader p {
+  margin-top: 6px;
+  color: #aaaabd;
+  font-size: 0.92rem;
+}
+
+.joinIconBox {
+  width: 50px;
+  height: 50px;
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 14px 30px rgba(255, 0, 88, 0.25);
+}
+
+.meetingInputRow {
+  display: grid;
+  grid-template-columns: 1fr 56px;
+  gap: 12px;
+}
+
+.copyCodeBtn {
+  height: 56px;
+  width: 56px;
+  border-radius: 16px !important;
+  color: white !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.primaryJoinBtn {
+  width: 100%;
+  margin-top: 18px !important;
+  padding: 14px 20px !important;
+  border-radius: 16px !important;
+  color: white !important;
+  font-weight: 900 !important;
+  text-transform: none !important;
+  background: linear-gradient(135deg, #ff8a00, #ff0058) !important;
+  box-shadow: 0 18px 38px rgba(255, 0, 88, 0.28);
+}
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: #aaaabd;
+}
+
+.orDivider span {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.createMeetingBtn {
+  width: 100%;
+  height: 56px;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: white;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+}
+
+.createMeetingBtn span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.createMeetingBtn svg {
+  color: #ff3d81;
+}
+
+/* Right visual */
+.homeVisualCard {
+  display: flex;
+  justify-content: center;
+}
+
+.miniMeetingWindow {
+  width: 100%;
+  max-width: 310px;
+  padding: 18px;
+  border-radius: 28px;
+  transform: rotate(4deg);
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+}
+
+.miniTopBar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.miniTopBar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #20ff90;
+  box-shadow: 0 0 14px #20ff90;
+}
+
+.miniTopBar p {
+  flex: 1;
+  font-weight: 800;
+}
+
+.miniTopBar small {
+  color: #aaaabd;
+}
+
+.miniVideoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.miniVideoGrid div {
+  height: 95px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+}
+
+.miniVideoGrid div:nth-child(2) {
+  background: linear-gradient(135deg, #6a5cff, #b15cff);
+}
+
+.miniVideoGrid div:nth-child(3) {
+  background: linear-gradient(135deg, #1f8cff, #23c6ff);
+}
+
+.miniVideoGrid div:nth-child(4) {
+  background: linear-gradient(135deg, #ff3d81, #8f43ff);
+}
+
+.miniControls {
+  margin-top: 15px;
+  height: 45px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.miniControls span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Quick actions */
+.quickActions {
+  width: 90%;
+  max-width: 1220px;
+  margin: 42px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding-bottom: 45px;
+}
+
+.quickActionCard {
+  padding: 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: 0.25s ease;
+}
+
+.quickActionCard:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.quickIcon {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: white;
+}
+
+.videoIcon {
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+}
+
+.historyIcon {
+  background: linear-gradient(135deg, #6a5cff, #b15cff);
+}
+
+.shareIcon {
+  background: linear-gradient(135deg, #1f8cff, #23c6ff);
+}
+
+.quickActionCard h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.quickActionCard p {
+  color: #b9b9ca;
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+/* Responsive */
+@media (max-width: 1150px) {
+  .homeDashboard {
+    grid-template-columns: 1fr 420px;
+  }
+
+  .homeVisualCard {
+    display: none;
+  }
+}
+
+@media (max-width: 850px) {
+  .homeNavbar {
+    padding: 0 20px;
+  }
+
+  .homeDashboard {
+    margin-top: 45px;
+    grid-template-columns: 1fr;
+  }
+
+  .homeHero {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .homeFeatureChips {
+    justify-content: center;
+  }
+
+  .quickActions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .homeNavbar {
+    height: auto;
+    padding: 18px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .navRight {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .homeHero h1 {
+    font-size: 2.4rem;
+  }
+
+  .meetingInputRow {
+    grid-template-columns: 1fr;
+  }
+
+  .copyCodeBtn {
+    width: 100%;
+  }
+}
+
+
+/* ===============================
+   MEETSYNC HISTORY PAGE
+================================= */
+
+.historyPage {
+  min-height: 100vh;
+  color: white;
+  background:
+    radial-gradient(circle at 15% 70%, rgba(255, 0, 88, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.34), transparent 38%),
+    linear-gradient(135deg, #070816, #15162b 55%, #25142f);
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.historyNavbar {
+  height: 72px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5, 7, 18, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.historyBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.historyLogoDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 0 24px rgba(255, 0, 88, 0.65);
+}
+
+.historyBrand h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.historyHomeBtn {
+  color: white !important;
+  text-transform: none !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  padding: 9px 18px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Wrapper */
+.historyWrapper {
+  width: 90%;
+  max-width: 1180px;
+  margin: 58px auto 0;
+}
+
+/* Hero */
+.historyHero {
+  display: grid;
+  grid-template-columns: 1fr 230px 270px;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.historyBadge {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #ffd7c2;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 20px;
+}
+
+.historyBadge svg {
+  font-size: 19px;
+  color: #ff8a00;
+}
+
+.historyHero h1 {
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -1.8px;
+  font-weight: 950;
+}
+
+.historyHero p {
+  max-width: 580px;
+  margin-top: 16px;
+  color: #c8c8d8;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Stats */
+.historyStatsCard {
+  padding: 24px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.statsIcon {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 16px 36px rgba(255, 0, 88, 0.25);
+}
+
+.statsIcon svg {
+  font-size: 28px;
+}
+
+.calendarIcon {
+  background: linear-gradient(135deg, #6a5cff, #b15cff);
+}
+
+.historyStatsCard h2 {
+  font-size: 1.7rem;
+  font-weight: 950;
+  margin-bottom: 4px;
+}
+
+.historyStatsCard p {
+  margin: 0;
+  color: #aaaabd;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+/* List section */
+.historyListSection {
+  margin-top: 48px;
+  padding: 30px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+}
+
+.historySectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.historySectionHeader h2 {
+  font-size: 1.55rem;
+  font-weight: 900;
+}
+
+.historySectionHeader p {
+  margin-top: 5px;
+  color: #aaaabd;
+}
+
+.createFromHistoryBtn {
+  color: white !important;
+  text-transform: none !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  padding: 10px 18px !important;
+  background: linear-gradient(135deg, #ff8a00, #ff0058) !important;
+}
+
+/* Cards */
+.historyGrid {
+  display: grid;
+  gap: 16px;
+}
+
+.historyCard {
+  padding: 20px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  transition: 0.25s ease;
+}
+
+.historyCard:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.105);
+}
+
+.historyCardLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.meetingIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+}
+
+.meetingIcon svg {
+  font-size: 27px;
+}
+
+.historyCard h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.historyCard p {
+  color: #b9b9ca;
+  font-size: 0.92rem;
+}
+
+.rejoinBtn {
+  border: none;
+  border-radius: 999px;
+  padding: 11px 18px;
+  cursor: pointer;
+  color: white;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 14px 32px rgba(255, 0, 88, 0.24);
+}
+
+.rejoinBtn svg {
+  font-size: 18px;
+}
+
+/* Empty state */
+.emptyHistoryCard {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 34px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+.emptyIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.emptyIcon svg {
+  font-size: 34px;
+  color: #ff8a00;
+}
+
+.emptyHistoryCard h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.emptyHistoryCard p {
+  color: #b9b9ca;
+  max-width: 430px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.primaryHistoryBtn {
+  color: white !important;
+  text-transform: none !important;
+  font-weight: 900 !important;
+  border-radius: 999px !important;
+  padding: 11px 22px !important;
+  background: linear-gradient(135deg, #ff8a00, #ff0058) !important;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .historyHero {
+    grid-template-columns: 1fr;
+  }
+
+  .historyStatsCard {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .historyNavbar {
+    padding: 0 20px;
+  }
+
+  .historyWrapper {
+    margin-top: 38px;
+  }
+
+  .historySectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .historyCard {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .rejoinBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ===============================
+   UPDATED LOBBY / READY TO JOIN UI
+================================= */
+
+.lobbyContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background:
+    radial-gradient(circle at 18% 72%, rgba(255, 0, 88, 0.18), transparent 38%),
+    radial-gradient(circle at 82% 25%, rgba(99, 102, 241, 0.36), transparent 40%),
+    linear-gradient(135deg, #070816, #15162b 55%, #25142f);
+}
+
+.lobbyCard {
+  width: 100%;
+  max-width: 470px;
+  padding: 28px;
+  border-radius: 30px;
+  color: white;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+}
+
+.lobbyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+  gap: 14px;
+}
+
+.lobbyLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.lobbyLogo span {
+  width: 17px;
+  height: 17px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 0 22px rgba(255, 0, 88, 0.7);
+}
+
+.lobbyLogo p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.lobbyRoomCode {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: #d8d8e8;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lobbyRoomCode b {
+  color: #ffb38a;
+}
+
+.lobbyTitle {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.lobbyTitle h2 {
+  font-size: 1.8rem;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.lobbyTitle p {
+  max-width: 340px;
+  margin: 0 auto;
+  color: #b9b9ca;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.videoPreview {
+  position: relative;
+  width: 100%;
+  height: 255px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #05050d;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.38);
+}
+
+.videoPreview video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.08) contrast(1.05);
+}
+
+.previewBadge {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(12px);
+}
+
+.lobbyNote {
+  margin-top: 18px;
+  text-align: center;
+  color: #aaaabd;
+  font-size: 0.82rem;
+}
+
+/* Mobile lobby */
+@media (max-width: 520px) {
+  .lobbyContainer {
+    padding: 18px;
+  }
+
+  .lobbyCard {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .lobbyHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .videoPreview {
+    height: 220px;
+  }
+
+  .lobbyTitle h2 {
+    font-size: 1.55rem;
+  }
+}
+
+/* ===============================
+   UPDATED AUTH PAGE
+================================= */
+
+.authPage {
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px;
+  background:
+    radial-gradient(circle at 15% 70%, rgba(255, 0, 88, 0.18), transparent 34%),
+    radial-gradient(circle at 84% 25%, rgba(99, 102, 241, 0.36), transparent 38%),
+    linear-gradient(135deg, #070816, #15162b 55%, #25142f);
+}
+
+.authShell {
+  width: 100%;
+  max-width: 1050px;
+  display: grid;
+  grid-template-columns: 1.1fr 420px;
+  gap: 46px;
+  align-items: center;
+}
+
+.authInfo {
+  max-width: 560px;
+}
+
+.authBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.authBrand span {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #ff8a00, #ff0058);
+  box-shadow: 0 0 24px rgba(255, 0, 88, 0.65);
+}
+
+.authBrand h2 {
+  font-size: 1.65rem;
+  font-weight: 950;
+}
+
+.authInfo h1 {
+  font-size: clamp(44px, 5vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  font-weight: 950;
+}
+
+.authInfo h1 span {
+  display: block;
+  background: linear-gradient(135deg, #ffb347, #ff3d81);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.authInfo p {
+  margin-top: 22px;
+  max-width: 520px;
+  color: #c8c8d8;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.authChips {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.authChips div {
+  padding: 11px 15px;
+  border-radius: 999px;
+  color: #eeeeff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.authCard {
+  width: 100%;
+  padding: 34px;
+  border-radius: 30px;
+  color: white;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+}
+
+.authIcon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 138, 0, 0.12);
+  border: 1px solid rgba(255, 138, 0, 0.22);
+}
+
+.authIcon svg {
+  color: #ff8a00;
+  font-size: 28px;
+}
+
+.authError {
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: #ffb4c0;
+  font-size: 0.9rem;
+  background: rgba(255, 75, 92, 0.1);
+  border: 1px solid rgba(255, 75, 92, 0.18);
+}
+
+.authSwitch {
+  color: #ff8a00;
+  cursor: pointer;
+  margin-left: 5px;
+  font-weight: 800;
+}
+
+.authSwitch:hover {
+  color: #ff3d81;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .authShell {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+
+  .authInfo {
+    text-align: center;
+  }
+
+  .authBrand,
+  .authChips {
+    justify-content: center;
+  }
+
+  .authInfo h1 {
+    font-size: 2.7rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .authPage {
+    padding: 18px;
+  }
+
+  .authCard {
+    padding: 26px 22px;
+    border-radius: 24px;
+  }
+
+  .authInfo h1 {
+    font-size: 2.2rem;
+  }
+
+  .authInfo p {
+    font-size: 15px;
+  }
+}
+
