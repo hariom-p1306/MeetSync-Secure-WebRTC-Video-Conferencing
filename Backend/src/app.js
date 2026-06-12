@@ -1,46 +1,45 @@
 import express from "express";
-
-import {createServer} from "node:http";
- 
-import { Server } from "socket.io";
-
+import { createServer } from "node:http";
 import mongoose from "mongoose";
-
-
+import cors from "cors";
+import dotenv from "dotenv";
 
 import { connectToSocket } from "./controllers/socketManager.js";
-import cors from "cors";
+import userRoutes from "./routes/users.routes.js";
+import recordingRoutes from "./routes/recording.routes.js";
 
-import userRoutes from "./routes/users.routes.js"
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const io = connectToSocket(server);
+
+connectToSocket(server);
+
 app.use(cors());
-app.use(express.json({limit: "40kb"}));
-app.use(express.urlencoded({limit:"40kb", extended:true}));
+app.use(express.json({ limit: "40kb" }));
+app.use(express.urlencoded({ limit: "40kb", extended: true }));
+
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/recordings", recordingRoutes);
 
-app.set("port", (process.env.port || 8000));
+app.set("port", process.env.PORT || 8000);
 
-app.get("/home",(req,res)=>{
-    return res.json({"hello":"world"});
+app.get("/home", (req, res) => {
+  return res.json({ hello: "world" });
 });
 
 const start = async () => {
-    try {
-        const connectionDb = await mongoose.connect(
-            "mongodb+srv://videoconference:omKar512@cluster0.58mfsic.mongodb.net/videoconferenceDB?retryWrites=true&w=majority"
-        );
-        console.log(`MONGO connected DB host ${connectionDb.connection.host}`);
+  try {
+    const connectionDb = await mongoose.connect(process.env.MONGO_URL);
 
-        server.listen(8000, () => {
-            console.log("Listening on port 8000");
-        });
-    } catch (err) {
-        console.error("Error connecting to MongoDB:", err);
-    }
+    console.log(`MONGO connected DB host: ${connectionDb.connection.host}`);
+
+    server.listen(process.env.PORT || 8000, () => {
+      console.log(`Listening on port ${process.env.PORT || 8000}`);
+    });
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
 };
-
 
 start();

@@ -66,6 +66,9 @@ export default function VideoMeetConponent() {
 
   const [isRecording, setIsRecording] = useState(false);
   const [recordingUrl, setRecordingUrl] = useState("");
+  const [isUploadingRecording, setIsUploadingRecording] = useState(false);
+  const [uploadedRecordingUrl, setUploadedRecordingUrl] = useState("");
+  const [uploadedRecordingFileName, setUploadedRecordingFileName] = useState("");
 
   const [connectionStatus, setConnectionStatus] = useState("Waiting");
   const [iceStatus, setIceStatus] = useState("Not connected");
@@ -253,6 +256,65 @@ export default function VideoMeetConponent() {
       getUserMedia();
     }
   }, [audio, video]);
+
+  //upload funtion 
+
+  const uploadRecordingToS3 = async (recordingBlob) => {
+    try {
+      setIsUploadingRecording(true);
+
+      const meetingCode =
+        window.location.pathname.replace("/", "") || "default-room";
+
+      // Step 1: Get presigned upload URL from backend
+      const response = await fetch(`${server}/api/v1/recordings/upload-url`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          meetingCode,
+          fileType: "video/webm",
+        }),
+      });
+
+      const data = await response.json();
+      console.log("Presigned URL response:", data);
+      console.log("Backend server:", server);
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to get upload URL");
+      }
+
+      // Step 2: Upload actual recording blob to AWS S3
+      const uploadResponse = await fetch(data.uploadUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "video/webm",
+        },
+        body: recordingBlob,
+      });
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        console.error("S3 upload failed:", uploadResponse.status, errorText);
+        throw new Error(`Failed to upload recording to S3: ${uploadResponse.status}`);
+      }
+
+      setUploadedRecordingUrl(data.fileUrl);
+      setUploadedRecordingFileName(data.fileName);
+
+      console.log("Recording uploaded successfully:", data.fileUrl);
+      alert("Recording uploaded to AWS S3 successfully!");
+
+      return data.fileUrl;
+    } catch (error) {
+      console.error("Recording upload error:", error);
+      alert("Recording upload failed. Please check console.");
+    } finally {
+      setIsUploadingRecording(false);
+    }
+  };
 
   // ---------------------------
   // WebRTC signaling
@@ -661,15 +723,18 @@ export default function VideoMeetConponent() {
         }
       };
 
-      mediaRecorder.onstop = () => {
-        const recordedBlob = new Blob(recordedChunksRef.current, {
+      mediaRecorderRef.current.onstop = async () => {
+        const recordingBlob = new Blob(recordedChunksRef.current, {
           type: "video/webm",
         });
 
-        const url = URL.createObjectURL(recordedBlob);
-        setRecordingUrl(url);
-      };
+        const localRecordingUrl = URL.createObjectURL(recordingBlob);
+        setRecordingUrl(localRecordingUrl);
 
+        recordedChunksRef.current = [];
+
+        await uploadRecordingToS3(recordingBlob);
+      };
       mediaRecorder.start();
       setIsRecording(true);
     } catch (error) {
@@ -692,6 +757,36 @@ export default function VideoMeetConponent() {
     a.href = recordingUrl;
     a.download = `meetsync-recording-${Date.now()}.webm`;
     a.click();
+  };
+
+  const downloadRecordingFromS3 = async () => {
+    try {
+      if (!uploadedRecordingFileName) {
+        alert("No uploaded recording found");
+        return;
+      }
+
+      const response = await fetch(`${server}/api/v1/recordings/download-url`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fileName: uploadedRecordingFileName,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to get download URL");
+      }
+
+      window.open(data.downloadUrl, "_blank");
+    } catch (error) {
+      console.error("Recording download error:", error);
+      alert("Failed to download recording from AWS S3");
+    }
   };
 
   const handleEndCall = () => {
@@ -1063,6 +1158,19 @@ export default function VideoMeetConponent() {
           </IconButton>
         )}
 
+        {uploadedRecordingFileName && (
+          <IconButton
+            onClick={downloadRecordingFromS3}
+            style={{ color: "#86efac" }}
+            title="Download Cloud Recording"
+          >
+            <DownloadIcon />
+          </IconButton>
+        )}
+        {/* Add this here */}
+        {isUploadingRecording && (
+          <span className={styles.uploadingText}>Uploading recording...</span>
+        )}
         <IconButton onClick={handleEndCall} style={{ color: "#ff4b5c" }}>
           <CallEndIcon />
         </IconButton>
