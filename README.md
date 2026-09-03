@@ -1,395 +1,190 @@
-# MeetSync – Secure Real-Time Video Conferencing Platform
+# MeetSync - Secure Real-Time Video Conferencing Platform
 
-MeetSync is a full-stack real-time video conferencing and collaboration platform built with the MERN stack, WebRTC, Socket.io, and JWT authentication.
-It allows users to create and join secure meeting rooms, communicate through real-time audio/video calls, chat instantly, share screens, record meetings, use a collaborative whiteboard, and monitor WebRTC connection diagnostics.
+MeetSync is a full-stack video conferencing and collaboration application. Users can create or join shareable meeting rooms, communicate with WebRTC audio/video, chat in real time, share their screen, draw on a shared whiteboard, and record their local media stream.
 
-This project is built as a production-style real-time communication platform to demonstrate strong skills in WebRTC, Socket.io, full-stack development, real-time collaboration, authentication, and modern UI/UX design.
-
----
+The project focuses on the practical pieces behind a browser-based meeting experience: WebRTC peer connections, Socket.IO signaling, room events, MongoDB-backed meeting history, and a TURN relay fallback for difficult network conditions.
 
 ## Live Demo
 
-**Live Project:** https://meetsync-secure-webrtc-video.onrender.com/
-**GitHub Repository:** https://github.com/hariom-p1306/MeetSync-Secure-WebRTC-Video-Conferencing
+Frontend: https://meetsync-secure-webrtc-video.onrender.com/
 
----
+## GitHub Repository
+
+https://github.com/hariom-p1306/MeetSync-Secure-WebRTC-Video-Conferencing
 
 ## Key Highlights
 
-* Built a secure real-time video conferencing platform using **WebRTC peer-to-peer communication**.
-* Implemented **Socket.io signaling** for WebRTC offer/answer exchange and ICE candidate handling.
-* Added real-time collaboration tools including **chat, screen sharing, recording, diagnostics panel, and whiteboard**.
-* Designed a modern responsive UI for landing page, authentication, dashboard, lobby, meeting room, and history page.
-* Implemented user authentication and meeting history using **JWT, Node.js, Express.js, and MongoDB**.
-* Improved screen sharing flow using **replaceTrack()** to switch between camera and screen stream smoothly.
-
----
+- React and Vite single-page frontend with responsive Material UI/CSS styling.
+- WebRTC peer-to-peer audio/video calls with Socket.IO signaling.
+- Google STUN plus TURN fallback for participants behind restrictive NAT or firewall rules.
+- Shareable room URLs, participant join/leave events, and meeting history.
+- Screen sharing without recreating peer connections by using `replaceTrack()`.
+- Room chat and collaborative Canvas whiteboard synchronized over Socket.IO.
+- Browser recording with MediaRecorder, local `.webm` download, and S3 presigned upload/download support.
+- Registration/login with bcrypt password hashing and a server-generated, database-backed access token.
 
 ## Tech Stack
 
-### Frontend
-
-* React.js
-* JavaScript
-* Material UI
-* CSS Modules
-* WebRTC APIs
-* MediaRecorder API
-* Canvas API
-* Socket.io Client
-
-### Backend
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* Socket.io
-* JWT Authentication
-* REST APIs
-
-### Core APIs and Concepts
-
-* WebRTC Peer Connection
-* SDP Offer/Answer Exchange
-* ICE Candidate Handling
-* MediaStream API
-* Screen Sharing using `getDisplayMedia()`
-* Stream switching using `replaceTrack()`
-* Meeting recording using `MediaRecorder`
-* Real-time drawing using Canvas API and Socket.io
-
----
+| Area | Technologies |
+| --- | --- |
+| Frontend | React, Vite, JavaScript, React Router, Material UI, CSS Modules |
+| Backend | Node.js, Express.js, Socket.IO, REST endpoints |
+| Data | MongoDB, Mongoose |
+| Real-time media | WebRTC, `RTCPeerConnection`, MediaStream, SDP, ICE |
+| Browser APIs | `getUserMedia`, `getDisplayMedia`, `MediaRecorder`, Canvas API |
+| File storage | AWS S3 with presigned upload/download URLs |
+| Deployment | Render Static Site, Render backend service, MongoDB Atlas, AWS EC2 TURN server |
 
 ## Features
 
-### Secure Authentication
+### Authentication and history
 
-* User registration and login
-* JWT-based authentication
-* Protected user-specific routes
-* User meeting history tracking
+- User registration and login.
+- Password hashing with bcrypt.
+- Server-generated access token stored against the user record.
+- User-specific meeting-history endpoints for saving and retrieving joined rooms.
 
-### Meeting Rooms
+### Meeting rooms and real-time calling
 
-* Create and join meeting rooms using unique room codes
-* Shareable meeting links
-* Lobby screen before joining a meeting
-* Camera preview before entering the room
-* Participant count display
+- Create or join a meeting through a shareable room URL.
+- Camera/microphone preview and in-call controls.
+- WebRTC peer-to-peer audio/video streams.
+- Socket.IO signaling for SDP offer/answer and ICE candidate exchange.
+- Participant join and leave handling.
+- Connection and ICE-state diagnostics in the meeting UI.
 
-### Real-Time Video Conferencing
+### Collaboration tools
 
-* WebRTC-based audio and video calling
-* Peer-to-peer media streaming
-* Socket.io signaling server
-* Participant join and leave handling
-* Local and remote video stream rendering
-
-### Screen Sharing
-
-* Screen sharing using `navigator.mediaDevices.getDisplayMedia()`
-* Improved stream switching using WebRTC `replaceTrack()`
-* Restores camera stream when screen sharing stops
-* Prevents unnecessary peer reconnection during screen share toggle
-
-### Real-Time Chat
-
-* Room-based chat system
-* Instant message broadcasting using Socket.io
-* Message timestamps
-* Empty state for chat panel
-* Unread message badge
-
-### Meeting Recording
-
-* Browser-based meeting recording using MediaRecorder API
-* Start and stop recording from meeting controls
-* Download recorded session as `.webm`
-* Recording status indicator in meeting room
-
-### WebRTC Diagnostics Panel
-
-* Connection state monitoring
-* ICE connection state tracking
-* Participant count
-* Mic status
-* Camera status
-* Screen sharing status
-* Recording status
-
-### Collaborative Whiteboard
-
-* Real-time whiteboard built using Canvas API
-* Room-based drawing synchronization using Socket.io
-* Clear whiteboard option
-* Useful for explanations, planning, and live collaboration
-
-### Meeting History
-
-* Stores previously joined meeting rooms
-* Rejoin meetings from history
-* Modern history dashboard with meeting cards
-* Empty state handling
-
-### Modern UI/UX
-
-* Rebranded from a basic video call app to **MeetSync**
-* Professional SaaS-style landing page
-* Clean authentication page
-* Improved post-login dashboard
-* Modern meeting lobby
-* Premium meeting room layout
-* Responsive design for different screen sizes
-
----
-
+- Real-time room chat.
+- Screen sharing through `getDisplayMedia()`.
+- Camera-to-screen and screen-to-camera switching through `RTCRtpSender.replaceTrack()`.
+- Collaborative Canvas whiteboard with room-scoped drawing and clear events.
+- MediaRecorder-based recording of the current local media stream.
+- Download local recordings as `.webm` files.
+- Upload/download recording files through short-lived S3 presigned URLs.
 
 ## Architecture Diagram
 
 ```mermaid
+flowchart LR
+    U[User browser]
+    F[React + Vite frontend\nRender Static Site]
+    B[Node.js + Express + Socket.IO\nRender Backend]
+    M[(MongoDB Atlas)]
+    S[(AWS S3\nRecording objects)]
+
+    U --> F
+    F -->|REST + Socket.IO| B
+    B --> M
+    F -->|Presigned upload/download| S
+```
+
+### WebRTC media path
+
+```mermaid
 flowchart TD
-    A[User / Student] --> B[Next.js Frontend]
-    B --> C[Next.js API Routes]
-
-    C --> D[AI Interview Evaluation API]
-    C --> E[Resume Analyzer API]
-    C --> F[Roadmap Generator API]
-    C --> G[AI Mentor API]
-    C --> H[Cover Letter API]
-
-    D --> I[Groq LLM API]
-    E --> I
-    F --> I
-    G --> I
-    H --> I
-
-    D --> J[Redis / Upstash]
-    E --> J
-
-    J --> K[Progress Tracking]
-    K --> L[Dashboard Analytics]
-
-    C --> M[Prisma ORM]
-    M --> N[PostgreSQL Database]
-
-    L --> B
+    A[Participant A browser] <-->|Preferred direct WebRTC media| C[Participant B browser]
+    A -.->|TURN relay only when direct P2P cannot connect| T[AWS EC2 TURN server\nUDP/TCP 3478]
+    T -.-> C
+    A -->|Socket.IO signaling| B[Render backend]
+    C -->|Socket.IO signaling| B
 ```
 
-### Architecture Overview
+## Architecture Overview
 
-PlacementPrep AI follows a full-stack AI-powered architecture built around Next.js API Routes, LLM-based evaluation, Redis/Upstash caching, Prisma ORM, and PostgreSQL persistence.
+The React/Vite frontend handles the meeting UI, browser permissions, media capture, peer connections, screen sharing, recording, and whiteboard rendering. It connects to the Node.js backend through REST endpoints and Socket.IO.
 
-The user interacts with the Next.js frontend, where they can access AI interview practice, resume analysis, roadmap generation, AI mentor support, and cover letter generation. Each feature communicates with dedicated Next.js API routes, which process user input and interact with the Groq LLM API to generate intelligent responses, feedback, scores, and recommendations.
+The Express/Socket.IO backend manages user routes, meeting-history persistence, room membership events, signaling-message relay, chat broadcasts, whiteboard broadcasts, and recording presigned URL endpoints. MongoDB Atlas stores application data through Mongoose. AWS S3 stores uploaded recording objects.
 
-Redis/Upstash is used for fast temporary data handling, progress tracking, and improving response flow for AI-based modules. Prisma ORM manages structured database operations, while PostgreSQL stores persistent user data, interview sessions, resume analysis results, progress records, and dashboard analytics.
-
-This architecture makes the platform modular, scalable, and suitable for real-world interview preparation workflows.
-
-
-## Project Architecture
-
-```txt
-MeetSync
-│
-├── Frontend
-│   ├── src
-│   │   ├── pages
-│   │   │   ├── landing.jsx
-│   │   │   ├── authentication.jsx
-│   │   │   ├── home.jsx
-│   │   │   ├── history.jsx
-│   │   │   └── VideoMeet.jsx
-│   │   │
-│   │   ├── contexts
-│   │   │   └── AuthContext.jsx
-│   │   │
-│   │   ├── styles
-│   │   │   └── videoComponent.module.css
-│   │   │
-│   │   ├── utils
-│   │   │   └── withAuth.jsx
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── environment.jsx
-│
-├── Backend
-│   ├── src
-│   │   ├── app.js
-│   │   ├── controllers
-│   │   │   ├── socketManager.js
-│   │   │   └── user.controller.js
-│   │   │
-│   │   ├── models
-│   │   │   ├── user.model.js
-│   │   │   └── meeting.model.js
-│   │   │
-│   │   └── routes
-│   │       └── users.routes.js
-```
-
----
+The signaling server helps browsers exchange connection setup messages. It does not carry ordinary WebRTC audio/video when a direct peer-to-peer path is available.
 
 ## How WebRTC Works in MeetSync
 
-MeetSync uses WebRTC for peer-to-peer audio/video communication. Since WebRTC needs a signaling mechanism before peers can connect, Socket.io is used as the signaling layer.
+1. A participant opens a meeting URL and the browser requests camera/microphone access.
+2. The frontend joins a Socket.IO room.
+3. When another participant joins, the browsers create `RTCPeerConnection` objects.
+4. Socket.IO relays SDP offers, answers, and ICE candidates between participants.
+5. ICE first attempts a direct peer-to-peer media path, assisted by STUN discovery.
+6. If direct connectivity is blocked by NAT or firewall rules, the configured AWS EC2 TURN server relays the media as a fallback over UDP/TCP port `3478`.
+7. Once connected, audio/video media flows through WebRTC while Socket.IO continues to handle signaling and collaboration events.
 
-### Flow
+TURN credentials, private keys, and other deployment secrets are intentionally not documented here.
 
-```txt
-User joins room
-↓
-Socket.io joins user to room
-↓
-Peer connection is created
-↓
-SDP offer/answer is exchanged
-↓
-ICE candidates are exchanged
-↓
-WebRTC peer-to-peer media connection is established
-↓
-Audio/video streams flow directly between users
-```
+## Socket.IO Events
 
----
+| Event | Purpose |
+| --- | --- |
+| `join-call` | Adds a socket to a meeting room. |
+| `user-joined` | Notifies room members that a participant joined. |
+| `signal` | Relays SDP or ICE signaling data to another participant. |
+| `user-left` | Notifies room members that a participant disconnected. |
+| `chat-message` | Broadcasts a chat message inside a room. |
+| `whiteboard-draw` | Broadcasts drawing coordinates and style data. |
+| `whiteboard-clear` | Clears the room whiteboard. |
 
-## Socket.io Events
+## Advanced Technical Features
 
-### WebRTC Signaling
+### Screen sharing with `replaceTrack()`
 
-* `join-call`
-* `signal`
-* `user-joined`
-* `user-left`
+When screen sharing starts, MeetSync gets a display stream through `getDisplayMedia()`. Instead of destroying and recreating every peer connection, it replaces the current video sender track with the screen track. When sharing ends, it restores the camera track. This keeps the existing WebRTC connection alive and avoids unnecessary reconnection.
 
-### Chat
+### Recording and storage
 
-* `chat-message`
+The browser uses `MediaRecorder` on the current local media stream and creates a `.webm` blob when recording stops. The user can download that local recording. The frontend can also request a short-lived S3 upload URL from the backend and upload the blob directly to S3; later it can request a signed download URL.
 
-### Whiteboard
 
-* `whiteboard-draw`
-* `whiteboard-clear`
+### Collaborative whiteboard
 
----
+The UI draws locally using Canvas API. Drawing coordinates are emitted through Socket.IO, and the backend broadcasts them to other sockets in the same room so participants see updates in real time.
 
-## Advanced Features Implemented
+## Deployment and Infrastructure
 
-### 1. Screen Sharing with `replaceTrack()`
+| Service | Role |
+| --- | --- |
+| Render Static Site | Hosts the built React/Vite frontend. |
+| Render Web Service | Runs the Node.js, Express, and Socket.IO backend. |
+| MongoDB Atlas | Hosts the MongoDB database used by Mongoose. |
+| AWS EC2 TURN server | Provides a WebRTC relay fallback for NAT/firewall-restricted connections on UDP/TCP port `3478`. |
+| AWS S3 | Stores uploaded recording files through presigned URLs. |
 
-Instead of reconnecting the peer connection, MeetSync replaces the active camera video track with the screen video track.
+### SPA refresh requirement on Render
 
-```txt
-Camera stream
-↓
-User starts screen share
-↓
-Screen stream captured
-↓
-Video track replaced using replaceTrack()
-↓
-User stops screen share
-↓
-Camera stream restored
-```
+MeetSync uses React Router meeting URLs such as `/123`. For a Render Static Site, configure this rewrite rule in **Redirects/Rewrites**:
 
-This improves the meeting experience by avoiding unnecessary reconnection during screen sharing.
+| Source Path | Destination Path | Action |
+| --- | --- | --- |
+| `/*` | `/index.html` | `Rewrite` |
 
----
+This makes Render serve the React entry file for client-side routes on refresh, while preserving the visible meeting URL.
 
-### 2. Meeting Recording with MediaRecorder API
+## Installation and Local Setup
 
-MeetSync records the active local media stream using the browser’s MediaRecorder API and allows users to download the recording.
+### Prerequisites
 
-```txt
-Start Recording
-↓
-Capture active media stream
-↓
-Store recorded chunks
-↓
-Stop Recording
-↓
-Generate downloadable .webm file
-```
+- Node.js 18 or newer
+- A MongoDB Atlas database (or another MongoDB instance)
+- Valid backend environment variables
 
----
-
-### 3. WebRTC Diagnostics Panel
-
-The diagnostics panel helps monitor the current meeting state and WebRTC connection health.
-
-It displays:
-
-* Connection state
-* ICE state
-* Participant count
-* Mic status
-* Camera status
-* Screen sharing status
-* Recording status
-
----
-
-### 4. Collaborative Whiteboard
-
-The whiteboard uses Canvas API for drawing and Socket.io for real-time synchronization.
-
-```txt
-User draws on canvas
-↓
-Coordinates are emitted through Socket.io
-↓
-Backend broadcasts drawing data to other users in the same room
-↓
-Other users see the drawing in real time
-```
-
----
-
-## Installation and Setup
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/hariom-p1306/MeetSync-Secure-WebRTC-Video-Conferencing.git
 cd MeetSync-Secure-WebRTC-Video-Conferencing
 ```
 
----
-
-## Backend Setup
+### 2. Start the backend
 
 ```bash
 cd Backend
 npm install
-```
-
-Create a `.env` file inside the Backend folder:
-
-```env
-PORT=8000
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
-
-Run the backend:
-
-```bash
-npm start
-```
-
-Or for development:
-
-```bash
 npm run dev
 ```
 
----
+The backend uses `PORT` when set, otherwise it listens on port `8000`.
 
-## Frontend Setup
+### 3. Start the frontend
+
+Open a second terminal:
 
 ```bash
 cd Frontend
@@ -397,90 +192,41 @@ npm install
 npm run dev
 ```
 
-Update the backend URL inside:
-
-```txt
-Frontend/src/environment.jsx
-```
-
-Example:
-
-```js
-const server = "http://localhost:8000";
-export default server;
-```
-
-For deployed frontend, replace it with deployed backend URL.
-
----
+For local development, the frontend API configuration should point to `http://localhost:8000`. Keep the `/api/v1/users` prefix unchanged.
 
 ## Environment Variables
 
-### Backend
+Create `Backend/.env` locally. Do not commit this file or share its values.
 
-```env
-PORT=8000
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | Optional backend port; defaults to `8000`. |
+| `MONGO_URL` | MongoDB connection string. |
+| `AWS_REGION` | Region used by the S3 client. |
+| `AWS_ACCESS_KEY_ID` | Server-side AWS credential identifier for S3 operations. |
+| `AWS_SECRET_ACCESS_KEY` | Server-side AWS secret for S3 operations. |
+| `AWS_S3_BUCKET_NAME` | S3 bucket used for recording objects. |
 
-### Frontend
-
-Update:
-
-```js
-const server = "your_backend_url";
-export default server;
-```
-
----
-
-## Resume Impact
-
-This project demonstrates:
-
-* Real-time communication engineering
-* WebRTC peer-to-peer media handling
-* Socket.io signaling and room-based broadcasting
-* Full-stack MERN development
-* JWT authentication
-* Real-time collaboration features
-* Media recording and screen sharing
-* Modern frontend UI/UX design
-* Production-style project structuring
-
----
+Never place database credentials, AWS secrets, TURN credentials, or private keys in frontend code, Git history, or public documentation.
 
 ## Resume Project Description
 
-```txt
-MeetSync – Real-Time Video Conferencing and Collaboration Platform
+**MeetSync - Real-Time Video Conferencing and Collaboration Platform**
 
-Built and deployed a secure WebRTC-based video conferencing platform with real-time audio/video calls, meeting rooms, chat, screen sharing, recording, and meeting history.
-
-Implemented Socket.io signaling for offer/answer exchange, ICE candidate handling, participant events, and room-based real-time communication.
-
-Added collaboration features including Canvas API whiteboard, MediaRecorder recording, shareable room links, and WebRTC diagnostics panel.
-```
-
----
+Built a full-stack WebRTC video conferencing application using React/Vite, Node.js, Express, Socket.IO, MongoDB, and Mongoose. Implemented room-based signaling, peer-to-peer calls with TURN fallback, screen sharing through `replaceTrack()`, real-time chat, Canvas whiteboard synchronization, local `.webm` recording, meeting history, and S3 presigned recording uploads.
 
 ## Future Improvements
 
-* Add TURN server support for better NAT traversal
-* Add host controls and waiting room approval
-* Add persistent whiteboard history
-* Add meeting analytics such as duration and participant activity
-* Add cloud recording support
-* Add TypeScript migration for safer Socket.io and WebRTC event handling
-* Add CI/CD workflow for automated deployment
-
----
+- Add host controls, waiting-room approval, and room-level authorization.
+- Persist whiteboard history and chat history in the database.
+- Add automated tests for authentication, REST routes, Socket.IO events, and WebRTC flows.
+- Improve multi-party call scalability with an SFU architecture when usage requires it.
+- Add meeting analytics such as duration, participant activity, and connection-quality reporting.
+- Move hard-coded client-side deployment values into environment-based configuration.
 
 ## Author
 
-**Hariom Patel**
-Full Stack Developer | MERN Stack | WebRTC | Real-Time Applications
+Hariom Patel - Full-Stack Developer
 
-* GitHub: https://github.com/hariom-p1306
-* LinkedIn: https://www.linkedin.com/in/hariom-patel-dev/
+- GitHub: https://github.com/hariom-p1306
+- LinkedIn: https://www.linkedin.com/in/hariom-patel-dev/
