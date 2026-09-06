@@ -54,7 +54,9 @@ export default function Authentication() {
 
         setMessage(result || "Account created successfully");
         setOpen(true);
-        setFormState(0);
+
+        // Auto login after successful registration
+        await handleLogin(username, password);
       }
 
       setUsername("");

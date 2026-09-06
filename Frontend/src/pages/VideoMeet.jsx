@@ -27,7 +27,19 @@ const server_url = server;
 const connections = {};
 
 const peerConfigConnections = {
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  iceServers: [
+    {
+      urls: "stun:stun.l.google.com:19302",
+    },
+    {
+      urls: [
+        "turn:13.232.240.115:3478?transport=udp",
+        "turn:13.232.240.115:3478?transport=tcp",
+      ],
+      username: "meetsyncuser",
+      credential: "MeetSyncTurn2026",
+    },
+  ],
 };
 
 export default function VideoMeetConponent() {
